@@ -34,13 +34,13 @@ echo "ff02::2         ip6-allrouters" >> /etc/hosts
 sh /etc/init.d/hostname.sh
 
 # Add foreman repo and install foreman-installer
-echo "deb http://deb.theforeman.org/ wheezy 1.5" > /etc/apt/sources.list.d/foreman.list
-echo "deb http://deb.theforeman.org/ plugins 1.5" >> /etc/apt/sources.list.d/foreman.list
+echo "deb http://deb.theforeman.org/ wheezy 1.6" > /etc/apt/sources.list.d/foreman.list
+echo "deb http://deb.theforeman.org/ plugins 1.6" >> /etc/apt/sources.list.d/foreman.list
 wget -q http://deb.theforeman.org/pubkey.gpg -O- | apt-key add -
 apt-get update && apt-get install -y foreman-installer
 
 # Install foreman
-foreman-installer --foreman-admin-password changeme
+foreman-installer --enable-foreman-compute-ec2 --enable-foreman-compute-gce --enable-foreman-compute-libvirt --enable-foreman-compute-openstack --enable-foreman-compute-ovirt --enable-foreman-compute-rackspace --enable-foreman-compute-vmware --foreman-admin-password changeme
 
 # Clear image & exit
 echo "root:root" | chpasswd
